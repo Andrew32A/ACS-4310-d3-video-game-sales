@@ -28,9 +28,9 @@ d3.csv("./data/vgsales.csv").then(function (data) {
   const height = screenHeight - margin.top - margin.bottom;
 
   // define other variables
-  const numBars = 10; // Number of bars to display at a time
-  let index = 0; // Starting index for the data slice
-  const duration = 1000; // Transition duration in milliseconds
+  const numBars = 10; // number of bars to display at a time
+  let index = 0; // starting index for the data slice
+  const duration = 1000; // transition duration in milliseconds
   const years = Array.from(new Set(data.map((d) => d.Year))).sort();
 
   // render the initial chart
@@ -41,14 +41,13 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     .attr("height", height);
 
   // create scales
-  const xScale = d3
+  let xScale = d3
     .scaleLinear()
     .domain([0, d3.max(data, (d) => d.Global_Sales)])
     .range([margin.left, width - margin.right]);
 
   const yScale = d3
     .scaleBand()
-    .domain(data.slice(0, numBars).map((d) => d.Name))
     .range([height - margin.bottom, margin.top])
     .padding(0.1);
 
@@ -64,14 +63,38 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     .attr("width", (d) => xScale(d.Global_Sales) - xScale(0))
     .attr("height", yScale.bandwidth());
 
+  // add a text element for displaying the current year
+  const yearText = svg
+    .append("text")
+    .attr("class", "year-text")
+    .attr("x", width / 2)
+    .attr("y", margin.top - 10) // adjust the position as desired
+    .attr("text-anchor", "middle")
+    .text("");
+
   // transition the bars
   function transition() {
     const currentYearData = data.filter((d) => d.Year === years[index]);
 
-    // update the y-scale domain with the current data
-    yScale.domain(currentYearData.map((d) => d.Name));
+    // sort the current year data by Global_Sales in descending order
+    currentYearData.sort(function (a, b) {
+      return b.Global_Sales - a.Global_Sales;
+    });
 
-    bars = svg.selectAll(".bar").data(currentYearData, (d) => d.Name);
+    // cap the data to the top 10 bars
+    const top10Data = currentYearData.slice(0, 10);
+
+    // update the y-scale domain with the current data (reversed order)
+    yScale.domain(top10Data.map((d) => d.Name).reverse());
+
+    // update the x-scale domain with the max sales of the current top game
+    const maxSales = top10Data[0].Global_Sales;
+    xScale = d3
+      .scaleLinear()
+      .domain([0, maxSales])
+      .range([margin.left, width - margin.right]);
+
+    bars = svg.selectAll(".bar").data(top10Data, (d) => d.Name);
 
     // exit
     bars
@@ -82,24 +105,40 @@ d3.csv("./data/vgsales.csv").then(function (data) {
       .remove();
 
     // enter
-    const enterBars = bars
-      .enter()
+    const enterBars = bars.enter().append("g").attr("class", "bar");
+
+    enterBars
       .append("rect")
-      .attr("class", "bar")
       .attr("x", xScale(0))
       .attr("y", (d) => yScale(d.Name))
       .attr("width", 0)
       .attr("height", yScale.bandwidth());
 
+    enterBars
+      .append("text")
+      .attr("class", "bar-label")
+      .attr("x", (d) => xScale(d.Global_Sales) + 5)
+      .attr("y", (d) => yScale(d.Name) + yScale.bandwidth() / 2)
+      .text((d) => d.Name);
+
     // update
-    bars = enterBars
-      .merge(bars)
-      .transition()
-      .duration(duration)
+    bars = enterBars.merge(bars).transition().duration(duration);
+
+    bars
+      .select("rect")
       .attr("x", xScale(0))
       .attr("y", (d) => yScale(d.Name))
       .attr("width", (d) => xScale(d.Global_Sales) - xScale(0))
       .attr("height", yScale.bandwidth());
+
+    bars
+      .select(".bar-label")
+      .attr("x", (d) => xScale(d.Global_Sales) + 5)
+      .attr("y", (d) => yScale(d.Name) + yScale.bandwidth() / 2)
+      .text((d) => d.Name);
+
+    // update the year text
+    yearText.text(years[index]);
 
     index = (index + 1) % years.length;
   }
