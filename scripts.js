@@ -30,7 +30,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
   // define other variables
   const numBars = 10; // number of bars to display at a time
   let index = 0; // starting index for the data slice
-  const duration = 1000; // transition duration in milliseconds
+  const duration = 2000; // transition duration in milliseconds
   const years = Array.from(new Set(data.map((d) => d.Year))).sort();
 
   // render the initial chart
@@ -160,4 +160,5 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     .call(d3.axisLeft(yScale));
 
   // TODO: add axis labels, title, legend, etc.
+  // add color codes for platforms and put it in the legend
 });
