@@ -160,5 +160,5 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     .call(d3.axisLeft(yScale));
 
   // TODO: add axis labels, title, legend, etc.
-  // add color codes for platforms and put it in the legend
+  // add color codes for platforms and put it in the legend, maybe put legend under bar race
 });
