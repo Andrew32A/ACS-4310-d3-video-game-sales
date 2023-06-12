@@ -1,3 +1,37 @@
+console_colors = {
+  Wii: "red",
+  NES: "blue",
+  GB: "green",
+  DS: "yellow",
+  X360: "orange",
+  PS3: "purple",
+  PS2: "pink",
+  SNES: "brown",
+  GBA: "gray",
+  "3DS": "cyan",
+  PS4: "magenta",
+  N64: "teal",
+  PS: "lime",
+  XB: "olive",
+  PC: "navy",
+  2600: "maroon",
+  PSP: "aqua",
+  XOne: "silver",
+  GC: "gold",
+  WiiU: "indigo",
+  GEN: "coral",
+  DC: "lavender",
+  PSV: "tan",
+  SAT: "salmon",
+  SCD: "violet",
+  WS: "beige",
+  NG: "khaki",
+  TG16: "turquoise",
+  "3DO": "orchid",
+  GG: "peru",
+  PCFX: "plum",
+};
+
 d3.csv("./data/vgsales.csv").then(function (data) {
   // convert sales values to numbers
   data.forEach(function (d) {
