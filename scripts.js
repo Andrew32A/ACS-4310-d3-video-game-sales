@@ -199,6 +199,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
   // create a button to trigger the transition
   const button = chartContainer
     .append("button")
+    .attr("class", "next-button")
     .text("Next Year")
     .on("click", transition);
 

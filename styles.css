@@ -4,3 +4,27 @@ body {
   margin: auto;
   padding: 2em;
 }
+
+.next-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #337ab7;
+  border: 2px solid #337ab7;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.next-button:hover {
+  background-color: #23527c;
+  border-color: #23527c;
+}
+
+.next-button:active {
+  background-color: #1d466b;
+  border-color: #1d466b;
+}
