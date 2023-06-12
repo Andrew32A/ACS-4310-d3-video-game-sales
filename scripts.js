@@ -1,3 +1,4 @@
+// 31 consoles
 consoleColors = {
   Wii: "red",
   NES: "blue",
