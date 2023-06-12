@@ -12,12 +12,9 @@ let margin = { top: 20, right: 20, bottom: 40, left: 60 };
 let width = screenWidth - margin.left - margin.right;
 let height = screenHeight - margin.top - margin.bottom;
 
-// add an event listener to the window to resize the chart
+// add an event listener to the window to resize the chart and reload page
 window.addEventListener("resize", function () {
-  screenWidth = window.innerWidth;
-  screenHeight = window.innerHeight;
-  width = screenWidth - margin.left - margin.right;
-  height = screenHeight - margin.top - margin.bottom;
+  location.reload();
 });
 
 // 31 consoles
