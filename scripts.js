@@ -1,4 +1,4 @@
-console_colors = {
+consoleColors = {
   Wii: "red",
   NES: "blue",
   GB: "green",
@@ -33,7 +33,7 @@ console_colors = {
 };
 
 function getConsoleColor(consoleName) {
-  return console_colors[consoleName] || "gray";
+  return consoleColors[consoleName] || "gray";
 }
 
 d3.csv("./data/vgsales.csv").then(function (data) {
@@ -112,7 +112,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
 
   // transition the bars
   function transition() {
-    const currentYearData = data.filter((d) => d.Year === years[index]);
+    const currentYearData = data.filter((d) => d.Year <= years[index]);
 
     // sort the current year data by Global_Sales in descending order
     currentYearData.sort(function (a, b) {
@@ -180,11 +180,18 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     // update the year text
     yearText.text(years[index]);
 
-    index = (index + 1) % years.length;
+    index++;
+    if (index >= years.length) {
+      // reached the end of years, stop the transition
+      index = years.length - 1;
+    }
   }
 
-  // repeat the transition
-  d3.interval(transition, duration * 2);
+  // create a button to trigger the transition
+  const button = chartContainer
+    .append("button")
+    .text("Next Year")
+    .on("click", transition);
 
   // add labels and other elements
   svg
@@ -199,27 +206,25 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     .attr("transform", `translate(${margin.left}, 0)`)
     .call(d3.axisLeft(yScale));
 
-  // TODO: add axis labels, title, legend, etc.
-  // add color codes for platforms and put it in the legend, maybe put legend under bar race
-
   // legend
   const legendContainer = chartContainer
     .append("div")
     .attr("class", "legend-container");
 
+  const legendWidth = width - margin.left - margin.right;
   const legend = legendContainer
     .append("svg")
-    .attr("width", width)
+    .attr("width", legendWidth)
     .attr("height", 40)
     .attr("class", "legend");
 
   const legendItems = legend
     .selectAll(".legend-item")
-    .data(Object.entries(console_colors))
+    .data(Object.entries(consoleColors))
     .enter()
     .append("g")
     .attr("class", "legend-item")
-    .attr("transform", (d, i) => `translate(${margin.left + i * 80}, 0)`);
+    .attr("transform", (d, i) => `translate(${i * 80}, 0)`);
 
   legendItems
     .append("rect")
@@ -234,4 +239,21 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     .attr("x", 30)
     .attr("y", 20)
     .text((d) => d[0]);
+
+  // Calculate the number of items that fit in a row
+  const itemsPerRow = Math.floor(legendWidth / 80);
+
+  // Wrap legend items to a new row if needed
+  legendItems.attr(
+    "transform",
+    (d, i) =>
+      `translate(${(i % itemsPerRow) * 80}, ${
+        Math.floor(i / itemsPerRow) * 30
+      })`
+  );
+
+  legendContainer.style(
+    "height",
+    `${Math.ceil(Object.keys(consoleColors).length / itemsPerRow) * 30}px`
+  );
 });
