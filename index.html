@@ -5,10 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Video Game Sales</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
     <script defer src="https://d3js.org/d3.v7.min.js"></script>
     <script defer src="./scripts.js"></script>
   </head>
   <body>
-    <div id="chart-container"></div>
+    <div id="control-bar-wrapper">
+      <div id="control-bar">
+        <button
+          id="sound-toggle"
+          class="toggle"
+          type="button"
+          data-toggled="false"
+          onClick="handleSoundToggle()"
+          title="Toggle Pulse"
+        >
+          <i class="fa-solid fa-music-slash off"></i>
+          <i class="fa-solid fa-music on"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="background-image"></div>
+
+    <div id="background-filter"></div>
+
+    <div id="logo">
+      <img
+        src="https://assets.codepen.io/1468070/Hyperplexed+Logo+-+White.png"
+        alt=""
+      />
+    </div>
+
+    <div id="sound-message">
+      <p>Click anywhere to toggle sound</p>
+    </div>
+
+    <canvas id="paper"></canvas>
   </body>
 </html>
