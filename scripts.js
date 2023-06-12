@@ -1,3 +1,25 @@
+// define the chart dimensions and margins
+let screenWidth =
+  window.innerWidth ||
+  document.documentElement.clientWidth ||
+  document.body.clientWidth;
+let screenHeight =
+  window.innerHeight ||
+  document.documentElement.clientHeight ||
+  document.body.clientHeight;
+
+let margin = { top: 20, right: 20, bottom: 40, left: 60 };
+let width = screenWidth - margin.left - margin.right;
+let height = screenHeight - margin.top - margin.bottom;
+
+// add an event listener to the window to resize the chart
+window.addEventListener("resize", function () {
+  screenWidth = window.innerWidth;
+  screenHeight = window.innerHeight;
+  width = screenWidth - margin.left - margin.right;
+  height = screenHeight - margin.top - margin.bottom;
+});
+
 // 31 consoles
 consoleColors = {
   Wii: "red",
@@ -51,20 +73,6 @@ d3.csv("./data/vgsales.csv").then(function (data) {
   data.sort(function (a, b) {
     return b.Global_Sales - a.Global_Sales;
   });
-
-  // define the chart dimensions and margins
-  const screenWidth =
-    window.innerWidth ||
-    document.documentElement.clientWidth ||
-    document.body.clientWidth;
-  const screenHeight =
-    window.innerHeight ||
-    document.documentElement.clientHeight ||
-    document.body.clientHeight;
-
-  const margin = { top: 20, right: 20, bottom: 40, left: 60 };
-  const width = screenWidth - margin.left - margin.right;
-  const height = screenHeight - margin.top - margin.bottom;
 
   // define other variables
   const numBars = 10; // number of bars to display at a time
