@@ -32,6 +32,10 @@ console_colors = {
   PCFX: "plum",
 };
 
+function getConsoleColor(consoleName) {
+  return console_colors[consoleName] || "gray";
+}
+
 d3.csv("./data/vgsales.csv").then(function (data) {
   // convert sales values to numbers
   data.forEach(function (d) {
@@ -146,7 +150,8 @@ d3.csv("./data/vgsales.csv").then(function (data) {
       .attr("x", xScale(0))
       .attr("y", (d) => yScale(d.Name))
       .attr("width", 0)
-      .attr("height", yScale.bandwidth());
+      .attr("height", yScale.bandwidth())
+      .attr("fill", (d) => getConsoleColor(d.Platform)); // set the console color for the bar
 
     enterBars
       .append("text")
@@ -163,7 +168,8 @@ d3.csv("./data/vgsales.csv").then(function (data) {
       .attr("x", xScale(0))
       .attr("y", (d) => yScale(d.Name))
       .attr("width", (d) => xScale(d.Global_Sales) - xScale(0))
-      .attr("height", yScale.bandwidth());
+      .attr("height", yScale.bandwidth())
+      .attr("fill", (d) => getConsoleColor(d.Platform)); // set the console color for the bar
 
     bars
       .select(".bar-label")
