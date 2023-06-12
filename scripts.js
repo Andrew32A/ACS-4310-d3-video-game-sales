@@ -201,4 +201,37 @@ d3.csv("./data/vgsales.csv").then(function (data) {
 
   // TODO: add axis labels, title, legend, etc.
   // add color codes for platforms and put it in the legend, maybe put legend under bar race
+
+  // legend
+  const legendContainer = chartContainer
+    .append("div")
+    .attr("class", "legend-container");
+
+  const legend = legendContainer
+    .append("svg")
+    .attr("width", width)
+    .attr("height", 40)
+    .attr("class", "legend");
+
+  const legendItems = legend
+    .selectAll(".legend-item")
+    .data(Object.entries(console_colors))
+    .enter()
+    .append("g")
+    .attr("class", "legend-item")
+    .attr("transform", (d, i) => `translate(${margin.left + i * 80}, 0)`);
+
+  legendItems
+    .append("rect")
+    .attr("x", 0)
+    .attr("y", 10)
+    .attr("width", 20)
+    .attr("height", 20)
+    .attr("fill", (d) => d[1]);
+
+  legendItems
+    .append("text")
+    .attr("x", 30)
+    .attr("y", 20)
+    .text((d) => d[0]);
 });
