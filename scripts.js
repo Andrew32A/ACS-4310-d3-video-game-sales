@@ -112,7 +112,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     .append("text")
     .attr("class", "year-text")
     .attr("x", width / 2)
-    .attr("y", margin.top - 10) // adjust the position as desired
+    .attr("y", margin.top - 5) // adjust the position as desired
     .attr("text-anchor", "middle")
     .text("");
 
