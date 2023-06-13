@@ -5,6 +5,15 @@
   padding: 2em;
 }
 
+.legend {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  max-height: 150px;
+  border: 1px solid black;
+  padding: 2em;
+}
+
 .next-button {
   display: inline-block;
   padding: 10px 20px;
