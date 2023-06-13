@@ -154,7 +154,7 @@ Rank,Name,Platform,Year,Genre,Publisher,NA_Sales,EU_Sales,JP_Sales,Other_Sales,G
 153,Tekken 2,PS,1996,Fighting,Sony Computer Entertainment,2.26,1.89,1.36,0.23,5.74
 154,Cooking Mama,DS,2006,Simulation,505 Games,3.13,1.94,0.07,0.58,5.72
 155,Destiny,PS4,2014,Shooter,Activision,2.49,2.05,0.16,0.96,5.65
-156,Tetris,NES,1988,Puzzle,Nintendo,2.97,0.69,1.81,0.11,5.58
+156,Tetris,NES,1988,Puzzle,Nintendo,0,0,0,0,0
 157,Assassin's Creed II,PS3,2009,Action,Ubisoft,2.54,1.95,0.21,0.87,5.57
 158,Super Smash Bros.,N64,1999,Fighting,Nintendo,2.95,0.6,1.97,0.04,5.55
 159,Assassin's Creed,X360,2007,Adventure,Ubisoft,3.28,1.65,0.07,0.55,5.55

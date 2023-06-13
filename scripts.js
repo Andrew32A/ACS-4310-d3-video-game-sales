@@ -162,7 +162,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     enterBars
       .append("text")
       .attr("class", "bar-label")
-      .attr("x", (d) => xScale(d.Global_Sales) + 5)
+      .attr("x", (d) => xScale(d.Global_Sales) / 2)
       .attr("y", (d) => yScale(d.Name) + yScale.bandwidth() / 2)
       .text((d) => d.Name);
 
