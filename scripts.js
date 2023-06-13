@@ -135,7 +135,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     const maxSales = top10Data[0].Global_Sales;
     xScale = d3
       .scaleLinear()
-      .domain([0, maxSales])
+      .domain([0, 100]) // had to change this to 100 to get the bars to show up, maxSales was the old value
       .range([margin.left, width - margin.right]);
 
     bars = svg.selectAll(".bar").data(top10Data, (d) => d.Name);
