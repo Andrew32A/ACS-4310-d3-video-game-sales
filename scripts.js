@@ -12,6 +12,8 @@ let margin = { top: 20, right: 20, bottom: 40, left: 60 };
 let width = screenWidth - margin.left - margin.right;
 let height = screenHeight - margin.top - margin.bottom;
 
+let xTickDisplay;
+
 // add an event listener to the window to resize the chart and reload page
 window.addEventListener("resize", function () {
   location.reload();
@@ -102,9 +104,9 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     .enter()
     .append("rect")
     .attr("class", "bar")
-    .attr("x", xScale(0))
-    .attr("y", (d) => yScale(d.Name))
-    .attr("width", (d) => xScale(d.Global_Sales) - xScale(0))
+    .attr("x", 0)
+    .attr("y", (d) => 0)
+    .attr("width", (d) => 0)
     .attr("height", yScale.bandwidth());
 
   // add a text element for displaying the current year
@@ -133,10 +135,36 @@ d3.csv("./data/vgsales.csv").then(function (data) {
 
     // update the x-scale domain with the max sales of the current top game
     const maxSales = top10Data[0].Global_Sales;
+
+    // clear x-axis
+    svg.selectAll(".x-axis").remove();
+
+    // updates xScale
     xScale = d3
       .scaleLinear()
-      .domain([0, 100]) // had to change this to 100 to get the bars to show up, maxSales was the old value
+      .domain([0, maxSales * 1.1])
       .range([margin.left, width - margin.right]);
+
+    // displays xScale
+    svg
+      .append("g")
+      .attr("class", "x-axis")
+      .attr("transform", `translate(${0}, ${height - margin.bottom})`)
+      .call(d3.axisBottom(xScale));
+
+    // update the y-axis
+    svg
+      .select(".y-axis")
+      .transition()
+      .duration(duration)
+      .call(d3.axisLeft(yScale));
+
+    // update the x-axis
+    // svg
+    //   .select(".x-axis")
+    //   .transition()
+    //   .duration(duration)
+    //   .call(d3.axisLeft(xScale));
 
     bars = svg.selectAll(".bar").data(top10Data, (d) => d.Name);
 
@@ -181,7 +209,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
       .select(".bar-label")
       .attr("x", (d) => xScale(d.Global_Sales) + 5)
       .attr("y", (d) => yScale(d.Name) + yScale.bandwidth() / 2)
-      .text((d) => d.Name);
+      .text((d) => `$${d.Global_Sales} Million`);
 
     // update the year text
     yearText.text(years[index]);
