@@ -4,9 +4,8 @@ A bar chart race that displays the top 10 cumulative video game sales data! This
 
 <h2 align="center"><a href="https://andrew32a.github.io/ACS-4310-d3-video-game-sales/">Click here to try it out!</a></h3>
 
-| --- | --- |
-|<img src="https://github.com/Andrew32A/ACS-4310-d3-video-game-sales/blob/main/images/screenshot1.png" align="center">|
-<img src="https://github.com/Andrew32A/ACS-4310-d3-video-game-sales/blob/main/images/screenshot2.png" align="center">|
+<img src="https://github.com/Andrew32A/ACS-4310-d3-video-game-sales/blob/main/images/screenshot1.png" align="center">
+<img src="https://github.com/Andrew32A/ACS-4310-d3-video-game-sales/blob/main/images/screenshot2.png" align="center">
 
 ## Code Structure
 
