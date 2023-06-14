@@ -26,6 +26,9 @@ body {
 .tooltip {
   position: absolute;
   pointer-events: none;
+  border: 1px solid black;
+  padding: 1em;
+  background-color: white;
 }
 
 .next-button {

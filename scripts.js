@@ -69,7 +69,7 @@ const tooltipSelector = document.querySelector(".tooltip");
 // add event listener to track mouse movement
 document.addEventListener("mousemove", (e) => {
   // update the tooltip position based on the cursor's coordinates
-  tooltip.style("left", e.pageX + "px").style("top", e.pageY + "px");
+  tooltip.style("left", e.pageX + 20 + "px").style("top", e.pageY + "px");
 });
 
 function getConsoleColor(consoleName) {
