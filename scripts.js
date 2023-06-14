@@ -191,7 +191,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     function handleMouseOver(i, d) {
       console.log(event.pageX, event.pageY);
       // change color of bar
-      d3.select(this).attr("fill", "white");
+      d3.select(this).style("opacity", 0.5);
       // show the tooltip window
       tooltip.style("opacity", 1);
 
@@ -217,6 +217,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     // mouse out for tooltips
     function handleMouseOut(d, i) {
       d3.select(this).attr("fill", (d) => getConsoleColor(d.Platform));
+      d3.select(this).style("opacity", 1);
       tooltip.style("opacity", 0);
     }
 
@@ -233,12 +234,12 @@ d3.csv("./data/vgsales.csv").then(function (data) {
       .on("mouseover", handleMouseOver)
       .on("mouseout", handleMouseOut);
 
+    // text for sales value to the right of each bar
     enterBars
       .append("text")
       .attr("class", "bar-label")
       .attr("x", (d) => xScale(d.Global_Sales) / 2) // made the text slowly move to the right, adjust if needed!
-      .attr("y", (d) => yScale(d.Name) + yScale.bandwidth() / 2)
-      .text((d) => d.Name);
+      .attr("y", (d) => yScale(d.Name) + yScale.bandwidth() / 2);
 
     // update
     bars = enterBars.merge(bars).transition().duration(duration);
@@ -255,7 +256,15 @@ d3.csv("./data/vgsales.csv").then(function (data) {
       .select(".bar-label")
       .attr("x", (d) => xScale(d.Global_Sales) + 5)
       .attr("y", (d) => yScale(d.Name) + yScale.bandwidth() / 2)
+      .attr("opacity", 0) // Set initial opacity to 0
       .text((d) => `$${d.Global_Sales} Million`);
+
+    bars
+      .select(".bar-label")
+      .transition() // Add a transition
+      .delay((d, i) => i * 50) // Delay each transition for a smoother appearance
+      .duration(200) // Set the duration to 0.2 seconds
+      .attr("opacity", 1); // Set the final opacity to 1
 
     // update the year text
     yearText.text(years[index]);

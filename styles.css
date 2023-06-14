@@ -31,6 +31,10 @@ body {
   background-color: white;
 }
 
+/* .bar-label {
+  transition: all 0.3s ease;
+} */
+
 .next-button {
   display: flex;
   justify-content: center;
