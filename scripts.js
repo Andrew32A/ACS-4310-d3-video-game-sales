@@ -12,8 +12,6 @@ let margin = { top: 20, right: 20, bottom: 40, left: 60 };
 let width = screenWidth - margin.left - margin.right;
 let height = screenHeight - margin.top - margin.bottom;
 
-let xTickDisplay;
-
 // add an event listener to the window to resize the chart and reload page
 window.addEventListener("resize", function () {
   location.reload();
@@ -159,13 +157,6 @@ d3.csv("./data/vgsales.csv").then(function (data) {
       .duration(duration)
       .call(d3.axisLeft(yScale));
 
-    // update the x-axis
-    // svg
-    //   .select(".x-axis")
-    //   .transition()
-    //   .duration(duration)
-    //   .call(d3.axisLeft(xScale));
-
     bars = svg.selectAll(".bar").data(top10Data, (d) => d.Name);
 
     // exit
@@ -291,4 +282,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     "height",
     `${Math.ceil(Object.keys(consoleColors).length / itemsPerRow) * 30}px`
   );
+
+  // initial transition
+  transition();
 });
