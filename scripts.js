@@ -8,7 +8,7 @@ let screenHeight =
   document.documentElement.clientHeight ||
   document.body.clientHeight;
 
-let margin = { top: 20, right: 20, bottom: 40, left: 60 };
+let margin = { top: 20, right: 20, bottom: 40, left: 150 };
 let width = screenWidth - margin.left - margin.right;
 let height = screenHeight - margin.top - margin.bottom;
 
@@ -93,7 +93,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
   const yScale = d3
     .scaleBand()
     .range([height - margin.bottom, margin.top])
-    .padding(0.1);
+    .padding(0.2);
 
   // create the initial bar chart
   let bars = svg
