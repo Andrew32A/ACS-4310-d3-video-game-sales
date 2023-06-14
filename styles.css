@@ -23,6 +23,11 @@ body {
   padding: 2em;
 }
 
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+}
+
 .next-button {
   display: flex;
   justify-content: center;

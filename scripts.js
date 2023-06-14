@@ -1,3 +1,8 @@
+// *****************************************************************************************
+// i really need to componentize this code, it's a mess
+// to anyone looking at this, i apologize lol
+// *****************************************************************************************
+
 // define the chart dimensions and margins
 let screenWidth =
   window.innerWidth ||
@@ -58,6 +63,14 @@ const tooltip = d3
   .append("div")
   .attr("class", "tooltip")
   .style("opacity", 0);
+
+const tooltipSelector = document.querySelector(".tooltip");
+
+// add event listener to track mouse movement
+document.addEventListener("mousemove", (e) => {
+  // update the tooltip position based on the cursor's coordinates
+  tooltip.style("left", e.pageX + "px").style("top", e.pageY + "px");
+});
 
 function getConsoleColor(consoleName) {
   return consoleColors[consoleName] || "gray";
@@ -174,27 +187,34 @@ d3.csv("./data/vgsales.csv").then(function (data) {
       .attr("width", 0)
       .remove();
 
+    // mouse over for tooltips
     function handleMouseOver(i, d) {
-      console.log(d);
-      console.log(i);
+      console.log(event.pageX, event.pageY);
+      // change color of bar
       d3.select(this).attr("fill", "white");
-      // Show the tooltip window
+      // show the tooltip window
       tooltip.style("opacity", 1);
 
-      // Position the tooltip window relative to the mouse
+      // position the tooltip window relative to the mouse
       const [x, y] = d3.pointer(d);
       tooltip.style("left", x + 10 + "px").style("top", y + "px");
 
-      // Set the content of the tooltip window based on the data
-      tooltip.html(
-        `<strong>${d.Name}</strong><br>
+      // set the content of the tooltip window based on the data
+      tooltip
+        .html(
+          `<strong>${d.Name}</strong><br>
           Platform: ${d.Platform}<br>
           Year: ${d.Year}<br>
           Genre: ${d.Genre}<br>
           Global Sales: $${d.Global_Sales} million`
-      );
+        )
+        // TODO: this isn't working properly, going to try creating an event listener tied to the tooltip to always update position
+        // .style("left", `${event.pageX + 10}px`) // update the tooltip's left position
+        // .style("top", `${event.pageY}px`) // update the tooltip's top position
+        .style("opacity", 0.9);
     }
 
+    // mouse out for tooltips
     function handleMouseOut(d, i) {
       d3.select(this).attr("fill", (d) => getConsoleColor(d.Platform));
       tooltip.style("opacity", 0);
