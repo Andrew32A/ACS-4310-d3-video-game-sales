@@ -3,8 +3,8 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  /* make the background image 50% opaque */
   opacity: 0.8;
+  height: 150vh;
 }
 
 .chart-container {
@@ -24,8 +24,11 @@ body {
 }
 
 .next-button {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  margin: auto;
   padding: 10px 20px;
+  margin-bottom: 2em;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
