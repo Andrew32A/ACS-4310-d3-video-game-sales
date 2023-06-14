@@ -52,6 +52,13 @@ consoleColors = {
   PCFX: "#DDA0DD",
 };
 
+// create a tooltip
+const tooltip = d3
+  .select("body")
+  .append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0);
+
 function getConsoleColor(consoleName) {
   return consoleColors[consoleName] || "gray";
 }
@@ -167,6 +174,32 @@ d3.csv("./data/vgsales.csv").then(function (data) {
       .attr("width", 0)
       .remove();
 
+    function handleMouseOver(i, d) {
+      console.log(d);
+      console.log(i);
+      d3.select(this).attr("fill", "white");
+      // Show the tooltip window
+      tooltip.style("opacity", 1);
+
+      // Position the tooltip window relative to the mouse
+      const [x, y] = d3.pointer(d);
+      tooltip.style("left", x + 10 + "px").style("top", y + "px");
+
+      // Set the content of the tooltip window based on the data
+      tooltip.html(
+        `<strong>${d.Name}</strong><br>
+          Platform: ${d.Platform}<br>
+          Year: ${d.Year}<br>
+          Genre: ${d.Genre}<br>
+          Global Sales: $${d.Global_Sales} million`
+      );
+    }
+
+    function handleMouseOut(d, i) {
+      d3.select(this).attr("fill", (d) => getConsoleColor(d.Platform));
+      tooltip.style("opacity", 0);
+    }
+
     // enter
     const enterBars = bars.enter().append("g").attr("class", "bar");
 
@@ -176,7 +209,9 @@ d3.csv("./data/vgsales.csv").then(function (data) {
       .attr("y", (d) => yScale(d.Name))
       .attr("width", 0)
       .attr("height", yScale.bandwidth())
-      .attr("fill", (d) => getConsoleColor(d.Platform)); // set the console color for the bar
+      .attr("fill", (d) => getConsoleColor(d.Platform)) // set the console color for the bar
+      .on("mouseover", handleMouseOver)
+      .on("mouseout", handleMouseOut);
 
     enterBars
       .append("text")
