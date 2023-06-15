@@ -233,6 +233,8 @@ d3.csv("./data/vgsales.csv").then(function (data) {
       .attr("width", 0)
       .attr("height", yScale.bandwidth())
       .attr("fill", (d) => getConsoleColor(d.Platform)) // set the console color for the bar
+      .attr("rx", 5) // rounded border for bars
+      .attr("ry", 5) // rounded border for bars
       .on("mouseover", handleMouseOver)
       .on("mouseout", handleMouseOut);
 
