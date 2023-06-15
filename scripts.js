@@ -332,10 +332,11 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     .attr("y", 20)
     .text((d) => d[0]);
 
-  // Calculate the number of items that fit in a row
+  // ...why didn't i just do this last bit of code in css?
+  // calculate the number of items that fit in a row
   const itemsPerRow = Math.floor(legendWidth / 80);
 
-  // Wrap legend items to a new row if needed
+  // wrap legend items to a new row if needed
   legendItems.attr(
     "transform",
     (d, i) =>
