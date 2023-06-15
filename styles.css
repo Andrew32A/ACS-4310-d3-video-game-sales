@@ -7,12 +7,16 @@ body {
   height: 130vh;
 }
 
-.chart-container {
-  width: 100vw;
-  height: 100vh;
+/* this is really broken, don't touch it */
+/* #chart-container {
+  display: flex;
+  justify-content: center;
   margin: auto;
+  height: 500px;
+  width: 500px;
+  border: 1px solid black;
   padding: 2em;
-}
+} */
 
 .legend {
   display: flex;

@@ -131,9 +131,11 @@ d3.csv("./data/vgsales.csv").then(function (data) {
   const yearText = svg
     .append("text")
     .attr("class", "year-text")
-    .attr("x", width / 2)
+    // add an x attribute to the middle of the screen
+    .attr("x", window.innerWidth / 2.12) // 2.12 is the best i could get, it aligns the year text in the middle of the screen
     .attr("y", margin.top - 5) // adjust the position as desired
     .attr("text-anchor", "middle")
+    .attr("font-size", "20px")
     .text("");
 
   // transition the bars
@@ -267,7 +269,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
       .attr("opacity", 1); // Set the final opacity to 1
 
     // update the year text
-    yearText.text(years[index]);
+    yearText.text(`Year: ${years[index]}`);
 
     index++;
     if (index >= years.length) {
@@ -301,7 +303,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     .append("div")
     .attr("class", "legend-container");
 
-  const legendWidth = (width - margin.left - margin.right) / 2;
+  const legendWidth = width / 2 - margin.left - margin.right;
   const legend = legendContainer
     .append("svg")
     .attr("width", legendWidth)
