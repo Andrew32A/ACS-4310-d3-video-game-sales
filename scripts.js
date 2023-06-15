@@ -132,7 +132,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
     .append("text")
     .attr("class", "year-text")
     // add an x attribute to the middle of the screen
-    .attr("x", window.innerWidth / 2.12) // 2.12 is the best i could get, it aligns the year text in the middle of the screen
+    .attr("x", window.innerWidth / 2) // year text position
     .attr("y", margin.top - 5) // adjust the position as desired
     .attr("text-anchor", "middle")
     .attr("font-size", "20px")
@@ -269,7 +269,7 @@ d3.csv("./data/vgsales.csv").then(function (data) {
       .attr("opacity", 1); // Set the final opacity to 1
 
     // update the year text
-    yearText.text(`Year: ${years[index]}`);
+    yearText.text(`Year - ${years[index]}`);
 
     index++;
     if (index >= years.length) {
